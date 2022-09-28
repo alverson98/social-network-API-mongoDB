@@ -30,3 +30,14 @@ const userSchema = new Schema(
     id: false,
   }
 );
+
+// Virtual property for the number of user's friends
+userSchema.virtual("friendCount").get(() => {
+  return this.friends.length;
+});
+
+//Initialize User model
+const User = model("user", userSchema);
+
+//Exporting model
+module.exports = User;
