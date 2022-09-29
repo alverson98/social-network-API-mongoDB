@@ -1,17 +1,25 @@
 const { Schema, model, Types } = require("mongoose");
 
 //Reaction Schema (schema only - used as subdocument schema)
-const reactionSchema = new Schema({
-  reactionId: { type: Types.ObjectId, default: new Types.ObjectId() },
-  reactionBody: { type: String, require: true, maxLength: 280 },
-  username: { type: String, require: true },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    //getter to format timestamp
-    get: formatTimestamp,
+const reactionSchema = new Schema(
+  {
+    reactionId: { type: Types.ObjectId, default: new Types.ObjectId() },
+    reactionBody: { type: String, require: true, maxLength: 280 },
+    username: { type: String, require: true },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      //getter to format timestamp
+      get: formatTimestamp,
+    },
   },
-});
+  {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
+  }
+);
 
 // Schema for thoughts
 const thoughtSchema = new Schema(
