@@ -1,4 +1,17 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
+
+//Reaction Schema (schema only - not model)
+const reactionSchema = new Schema({
+  reactionId: { type: Types.ObjectId, default: new Types.ObjectId() },
+  reactionBody: { type: String, require: true, maxLength: 280 },
+  username: { type: String, require: true },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    //getter to format timestamp
+    get: formatTimestamp,
+  },
+});
 
 // Schema for thoughts
 const thoughtSchema = new Schema({
@@ -7,16 +20,16 @@ const thoughtSchema = new Schema({
     type: Date,
     default: Date.now,
     //getter to format the timestamp
-    get: formatDateTime,
+    get: formatTimestamp,
   },
   //user that created the thought
-  username: {type: String, require: true},
+  username: { type: String, require: true },
   //reactions are like replies
-  reactions: [reactionSchema]
+  reactions: [reactionSchema],
 });
 
 //Formatting the timestamp
-const formatDateTime = () => {
+const formatTimestamp = () => {
   //creating a new date object with current date
   const timestamp = new Date();
 
@@ -36,28 +49,3 @@ const formatDateTime = () => {
   //returning the formatted timestamp - Jan 01, 2000 at 12:00 PM MST
   return `${date} at ${time}`;
 };
-
-
-// Reaction (SCHEMA ONLY)
-
-// reactionId
-
-// Use Mongoose's ObjectId data type
-// Default value is set to a new ObjectId
-// reactionBody
-
-// String
-// Required
-// 280 character maximum
-// username
-
-// String
-// Required
-// createdAt
-
-// Date
-// Set default value to the current timestamp
-// Use a getter method to format the timestamp on query
-// Schema Settings
-
-// This will not be a model, but rather will be used as the reaction field's subdocument schema in the Thought model.
