@@ -4,9 +4,27 @@ const User = require("../models/User");
 //Route Methods
 module.exports = {
   //Get all users
-  getAllUsers(req, res) {},
-  //get single user by its _id and populate thought and friend data
-  getSingleUser(req, res) {},
+  getAllUsers(req, res) {
+    User.find()
+      .then((users) => res.json(users))
+      .catch((err) => res.status(500).json(err));
+  },
+  //Get single user - populate thought and friend data
+  getSingleUser(req, res) {
+    User.findOne({ _id: req.params.userId })
+      .select("-__v")
+      .populate("thoughts", "friends")
+      .then((user) => {
+        if (!user) {
+          res.status(404).json({
+            message: "No user found with that Id",
+          });
+        } else {
+          res.json(user);
+        }
+      })
+      .catch((err) => res.status(500).json(err));
+  },
   //Post new user
   createUser(req, res) {},
   //put to update a user by its _id
