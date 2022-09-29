@@ -14,19 +14,28 @@ const reactionSchema = new Schema({
 });
 
 // Schema for thoughts
-const thoughtSchema = new Schema({
-  thoughtText: { type: String, require: true, minLength: 1, maxLength: 280 },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    //getter to format the timestamp
-    get: formatTimestamp,
+const thoughtSchema = new Schema(
+  {
+    thoughtText: { type: String, require: true, minLength: 1, maxLength: 280 },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      //getter to format the timestamp
+      get: formatTimestamp,
+    },
+    //user that created the thought
+    username: { type: String, require: true },
+    //reactions are like replies
+    reactions: [reactionSchema],
   },
-  //user that created the thought
-  username: { type: String, require: true },
-  //reactions are like replies
-  reactions: [reactionSchema],
-});
+  {
+    toJSON: {
+      virtuals: true,
+      getters: true,
+    },
+    id: false,
+  }
+);
 
 //Formatting the timestamp
 const formatTimestamp = () => {
