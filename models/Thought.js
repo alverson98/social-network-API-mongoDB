@@ -1,6 +1,6 @@
 const { Schema, model, Types } = require("mongoose");
 
-//Reaction Schema (schema only - not model)
+//Reaction Schema (schema only - used as subdocument schema)
 const reactionSchema = new Schema({
   reactionId: { type: Types.ObjectId, default: new Types.ObjectId() },
   reactionBody: { type: String, require: true, maxLength: 280 },
@@ -30,7 +30,7 @@ const thoughtSchema = new Schema({
 
 //Formatting the timestamp
 const formatTimestamp = () => {
-  //creating a new date object with current date
+  //creating a new date object of current date
   const timestamp = new Date();
 
   //setting requirements for the formatting -- refer to MDN Date doc
@@ -49,3 +49,14 @@ const formatTimestamp = () => {
   //returning the formatted timestamp - Jan 01, 2000 at 12:00 PM MST
   return `${date} at ${time}`;
 };
+
+//Virtual property for number of reactions
+thoughtSchema.virtual("reactionCount").get(() => {
+  return this.reactions.length;
+});
+
+//Initialize User model
+const Thought = model("thought", thoughtSchema);
+
+//Exporting model
+module.exports = Thought;
