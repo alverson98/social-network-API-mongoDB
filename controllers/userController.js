@@ -49,8 +49,20 @@ module.exports = {
       })
       .catch((err) => res.status(500).json(err));
   },
-  //delete to remove user by its _id
-  deleteUser(req, res) {},
+  //Delete to remove user by its _id
+  deleteUser(req, res) {
+    User.findByIdAndRemove({ _id: req.params.userId })
+      .then((deletedUser) => {
+        if (!deletedUser) {
+          res.status(404).json({
+            message: "No user found with that Id",
+          });
+        } else {
+          res.json(deletedUser);
+        }
+      })
+      .catch((err) => res.status(500).json(err));
+  },
   // BONUS: remove a user's associated thoughts when deleted
 
   //Post to add a new friend to a user's friend list
