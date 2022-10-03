@@ -99,6 +99,23 @@ module.exports = {
       })
       .catch((err) => res.status(500).json(err));
   },
-  //delete to pull and remove a reaction by the reaction's reactionId value
-  deleteReaction(req, res) {},
+  //Delete to pull and remove a reaction by the reaction's reactionId value
+  deleteReaction(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      //pulling to remove the reaction from the thought
+      { $pull: { reactions: { _id: req.params.reactionId } } },
+      { runValidators: true, new: true }
+    )
+      .then((removedReaction) => {
+        if (!removedReaction) {
+          res.status(404).json({
+            message: "No thought found with that Id",
+          });
+        } else {
+          res.json(removedReaction);
+        }
+      })
+      .catch((err) => res.status(500).json(err));
+  },
 };
