@@ -1,5 +1,7 @@
 //Thought model
 const Thought = require("../models/Thought");
+//User model
+const User = require("../models/User");
 
 module.exports = {
   //All thoughts
@@ -24,10 +26,41 @@ module.exports = {
       })
       .catch((err) => res.status(500).json(err));
   },
-  //post to create a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)
-  createThought(req, res) {},
-  //put to update a thought by its _id
-  updateThought(req, res) {},
+  //Create a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)
+  createThought(req, res) {
+    Thought.create(req.body)
+      .then((userData) => {
+        //Adding new thought to user thoughts array
+        User.findByIdAndUpdate(
+          { username: req.body.userName },
+          {
+            //Push new thought to array
+            $push: { thoughts: userData._id },
+          },
+          { new: true }
+        );
+        res.json(userData);
+      })
+      .catch((err) => res.status(500).json(err));
+  },
+  //Update a thought by its _id
+  updateThought(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((updatedThought) => {
+        if (!updatedThought) {
+          res.status(404).json({
+            message: "No thought found with that Id",
+          });
+        } else {
+          res.json(updatedThought);
+        }
+      })
+      .catch((err) => res.status(500).json(err));
+  },
   //delete to remove thought by its _id
   deleteThought(req, res) {},
 
