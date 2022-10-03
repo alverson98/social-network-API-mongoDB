@@ -61,11 +61,44 @@ module.exports = {
       })
       .catch((err) => res.status(500).json(err));
   },
-  //delete to remove thought by its _id
-  deleteThought(req, res) {},
+  //Delete to remove thought by its _id
+  deleteThought(req, res) {
+    Thought.findByIdAndRemove({ _id: req.params.thoughtId })
+      .then((deletedThought) => {
+        if (!deletedThought) {
+          res.status(404).json({
+            message: "No thought found with that Id",
+          });
+        } else {
+          res.json(deletedThought);
+        }
+      })
+      .catch((err) => res.status(500).json(err));
+  },
 
-  //post to create a reaction stored in a single thought's reactions array field
-  createReaction(req, res) {},
+  //Create a reaction stored in a single thought's reactions array field
+  createReaction(req, res) {
+    Thought.findByIdAndUpdate(
+      { _id: req.params.thoughtId },
+      {
+        //adding new reaction to array
+        $addToSet: {
+          reactions: req.body,
+        },
+      },
+      { runValidators: true, new: true }
+    )
+      .then((newReaction) => {
+        if (!newReaction) {
+          res.status(404).json({
+            message: "No thought found with that Id",
+          });
+        } else {
+          res.json(newReaction);
+        }
+      })
+      .catch((err) => res.status(500).json(err));
+  },
   //delete to pull and remove a reaction by the reaction's reactionId value
   deleteReaction(req, res) {},
 };
