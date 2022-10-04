@@ -6,13 +6,23 @@ Module 18 NoSQL Challenge: Social Network API
 
 ## Description
 
+This project was primarily focused on improving my knowledge for NoSQL databases, specifically MongoDB. The purpose was to create an API for a social network web application to allow users to share their thoughts with friends and add reactions (similar to likes) to their friend's thoughts. Using Express.js, multiple routes were created to manipulate user and thought data such as:
 
+- Create, update, and delete a user
+- Add and remove friends
+- Create, update, and delete a thought
+- Add and remove a reaction
+
+As of now there is seeded data of fictional users and thoughts to demonstrate the use of this application since there is no front end. However, this application can be applied to a developed front end to gather real user data.
 
 ### Skills Learned/ Improved
 
 Here is a list of some skills I learned and/or improved throughout this project:
 
-- 
+- Creating and navigating a database with MongoDB using Mongoose.
+- Comparing the similarities and differences between a NoSQL database (MongoDB) and SQL database (MySQL).
+- Creating GET, POST, PUT, and DELETE route handlers using Express.js.
+- Using Insomnia to test route handlers.
 
 Tools used to complete this project:
 
@@ -20,8 +30,9 @@ Tools used to complete this project:
 - GitHub
 - Node.js
 - MongoDB
-- Mongoose
+- Mongoose ODM
 - Express.js
+- Insomnia
 
 ## Installation
 
@@ -37,7 +48,7 @@ To install the application:
 
 ## Usage
 
-
+This application is used to create the backend API for a social media network using MongoDB so users can share their thoughts. Route handlers were created to create, manage, and maintain the user's data using Mongoose ORM. There is no deployed application since this is the back end only of a web application. There is a walk through video in the [Links](#links)section below demonstrating the functionality.
 
 Using insomnia to test all routes types:
 
