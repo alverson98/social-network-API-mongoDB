@@ -3,7 +3,6 @@ const connection = require("../config/connection");
 
 //models
 const { User, Thought } = require("../models");
-const { insertMany } = require("../models/Thought");
 
 //data
 const { userSeed, thoughtSeed } = require("./data");
@@ -17,8 +16,8 @@ connection.once("open", async () => {
   await Thought.deleteMany({});
 
   //seeding data
-  await insertMany(userSeed);
-  await insertMany(thoughtSeed);
+  await User.insertMany(userSeed);
+  await Thought.insertMany(thoughtSeed);
 
   process.exit(0);
 });
