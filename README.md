@@ -52,19 +52,19 @@ This application is used to create the backend API for a social media network us
 
 Using insomnia to test all routes types:
 
-![Screenshot of insomnia GET request]()
+![Screenshot of insomnia GET request](./utils/assets/GET%20Medium.png)
 
-![Screenshot of insomnia POST request]()
+![Screenshot of insomnia POST request](./utils/assets/POST%20Medium.png)
 
-![Screenshot of insomnia PUT request]()
+![Screenshot of insomnia PUT request](./utils/assets/PUT%20Medium.png)
 
-![Screenshot of insomnia DELETE request]()
+![Screenshot of insomnia DELETE request](./utils/assets/DELETE%20Medium.png)
 
 ### Links
 
 There is no deployed version of this application, but there is a walk through video demonstrating the functionality.
 
-[Link]() to walk through video.
+[Link](https://drive.google.com/file/d/1IMOu4dHENWlADJej_ux9-WmuoYgZXoHh/view) to walk through video.
 
 [Link](https://github.com/alverson98/social-network-API-mongoDB) to code repository.
 
