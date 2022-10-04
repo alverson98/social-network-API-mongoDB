@@ -74,7 +74,8 @@ module.exports = {
         $push: {
           friends: req.params.friendId,
         },
-      }
+      },
+      { runValidators: true, new: true }
     )
       .then((addedFriend) => {
         if (!addedFriend) {
@@ -82,7 +83,7 @@ module.exports = {
             message: "Cannot add friend. No user found with that Id",
           });
         } else {
-          res.json("Friend was added!");
+          res.json(addedFriend);
         }
       })
       .catch((err) => res.status(500).json(err));
