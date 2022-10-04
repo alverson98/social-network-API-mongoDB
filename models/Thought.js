@@ -26,6 +26,7 @@ const formatTimestamp = () => {
 const reactionSchema = new Schema(
   {
     reactionId: { type: Types.ObjectId, default: new Types.ObjectId() },
+    _id: {id: false},
     reactionBody: { type: String, require: true, maxLength: 280 },
     username: { type: String, require: true },
     createdAt: {
