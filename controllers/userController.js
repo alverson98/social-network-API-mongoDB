@@ -82,7 +82,7 @@ module.exports = {
             message: "Cannot add friend. No user found with that Id",
           });
         } else {
-          res.json(addedFriend);
+          res.json("Friend was added!");
         }
       })
       .catch((err) => res.status(500).json(err));
