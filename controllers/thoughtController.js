@@ -70,7 +70,7 @@ module.exports = {
             message: "No thought found with that Id",
           });
         } else {
-          res.json(deletedThought);
+          res.json("Thought was deleted");
         }
       })
       .catch((err) => res.status(500).json(err));
@@ -113,7 +113,7 @@ module.exports = {
             message: "No thought found with that Id",
           });
         } else {
-          res.json(removedReaction);
+          res.json("Reaction was removed from thought");
         }
       })
       .catch((err) => res.status(500).json(err));

@@ -58,7 +58,7 @@ module.exports = {
             message: "No user found with that Id",
           });
         } else {
-          res.json(deletedUser);
+          res.json(`${deletedUser.username} was deleted!!`);
         }
       })
       .catch((err) => res.status(500).json(err));
@@ -105,7 +105,7 @@ module.exports = {
                 message: "This friend does not exist.",
               });
             } else {
-              res.json(removedFriend);
+              res.json("Friend was removed!");
             }
           })
           .catch((err) => res.status(500).json(err));
