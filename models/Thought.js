@@ -1,5 +1,27 @@
 const { Schema, model, Types } = require("mongoose");
 
+//Formatting the timestamp
+const formatTimestamp = () => {
+  //creating a new date object of current date
+  const timestamp = new Date();
+
+  //setting requirements for the formatting -- refer to MDN Date doc
+  const dateOptions = { year: "numeric", month: "short", day: "numeric" };
+  const timeOptions = {
+    timeZoneName: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+
+  // date should look something like - Jan 01, 2000
+  const date = timestamp.toDateString("en-US", dateOptions);
+  // time should look something like - 12:00 PM MST
+  const time = timestamp.toLocaleTimeString("en-US", timeOptions);
+
+  //returning the formatted timestamp - Jan 01, 2000 at 12:00 PM MST
+  return `${date} at ${time}`;
+};
+
 //Reaction Schema (schema only - used as subdocument schema)
 const reactionSchema = new Schema(
   {
@@ -44,28 +66,6 @@ const thoughtSchema = new Schema(
     id: false,
   }
 );
-
-//Formatting the timestamp
-const formatTimestamp = () => {
-  //creating a new date object of current date
-  const timestamp = new Date();
-
-  //setting requirements for the formatting -- refer to MDN Date doc
-  const dateOptions = { year: "numeric", month: "short", day: "numeric" };
-  const timeOptions = {
-    timeZoneName: "short",
-    hour: "2-digit",
-    minute: "2-digit",
-  };
-
-  // date should look something like - Jan 01, 2000
-  const date = timestamp.toDateString("en-US", dateOptions);
-  // time should look something like - 12:00 PM MST
-  const time = timestamp.toLocaleTimeString("en-US", timeOptions);
-
-  //returning the formatted timestamp - Jan 01, 2000 at 12:00 PM MST
-  return `${date} at ${time}`;
-};
 
 //Virtual property for number of reactions
 thoughtSchema.virtual("reactionCount").get(() => {
